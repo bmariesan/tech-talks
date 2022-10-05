@@ -1,0 +1,9 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind: RateLimitService
+metadata:
+  name: ratelimit
+spec:
+  service: 'example-rate-limit.default:5000'
+  protocol_version: v3
+  failure_mode_deny: false # when set to true envoy will return 500 error when unable to communicate with RateLimitService

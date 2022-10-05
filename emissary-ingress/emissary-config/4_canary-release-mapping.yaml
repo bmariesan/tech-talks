@@ -1,0 +1,20 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  main-backend
+spec:
+  hostname: "*"
+  prefix: /canary/
+  service: quote
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  canary-backend
+spec:
+  hostname: "*"
+  prefix: /canary/
+  service: https://httpbin.org
+  rewrite: /status/200
+  weight: 50

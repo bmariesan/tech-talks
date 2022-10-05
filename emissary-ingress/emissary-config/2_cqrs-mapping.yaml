@@ -1,0 +1,21 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  cqrs-get
+spec:
+  hostname: "*"
+  prefix: /cqrs/
+  method: GET
+  service: quote
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  cqrs-put
+spec:
+  hostname: "*"
+  prefix: /cqrs/
+  rewrite: /put
+  method: PUT
+  service: https://httpbin.org

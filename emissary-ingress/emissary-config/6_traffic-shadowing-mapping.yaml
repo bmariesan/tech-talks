@@ -1,0 +1,20 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  monolith
+spec:
+  hostname: '*'
+  prefix: /shadow/
+  service: quote
+
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  microservice-shadow
+spec:
+  hostname: '*'
+  prefix: /shadow/
+  service: quote-cqrs
+  shadow: true

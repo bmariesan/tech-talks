@@ -1,0 +1,22 @@
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: grpc-py
+spec:
+  hostname: "*"
+  grpc: True
+  prefix: /helloworld.Greeter/
+  rewrite: /helloworld.Greeter/
+  service: grpc-example
+
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: my-service-mapping
+spec:
+  hostname: "*"
+  prefix: /my-service/
+  service: my-service
+  allow_upgrade:
+    - websocket

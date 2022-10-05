@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: emissary-ingress-admin
+spec:
+  ingressClassName: ambassador
+  rules:
+    - host: emissary-ingress-admin
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: emissary-ingress-admin
+                port:
+                  number: 8877

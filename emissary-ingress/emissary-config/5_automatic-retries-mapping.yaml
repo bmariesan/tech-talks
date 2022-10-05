@@ -1,0 +1,14 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  automatic-retries
+spec:
+  hostname: "*"
+  prefix: /auto-retries/
+  service: https://httpbin.org
+  rewrite: /status/
+  retry_policy:
+    retry_on: "5xx"
+    num_retries: 2
+    per_try_timeout: 5s

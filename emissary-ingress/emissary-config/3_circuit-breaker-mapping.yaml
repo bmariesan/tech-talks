@@ -1,0 +1,16 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  circuit-breaker
+spec:
+  hostname: "*"
+  prefix: /breaker/
+  method: GET
+  service: quote
+  circuit_breakers:
+    - priority: default
+      max_connections: 1
+      max_pending_requests: 1
+      max_requests: 1
+      max_retries: 5

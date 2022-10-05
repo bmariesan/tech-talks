@@ -1,0 +1,11 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  bypass-auth-mapping
+spec:
+  hostname: '*'
+  prefix: /no-auth/
+  service: quote
+  # by default auth is enforced to all when enabled
+  bypass_auth: true

@@ -1,0 +1,18 @@
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  rate-limited-mapping
+spec:
+  hostname: '*'
+  prefix: /rate-limited/
+  service: quote
+  labels:
+    emissary:
+      - request_label_header:
+          - path:
+              header: ":path"
+              omit_if_not_present: false
+      - request_label_header:
+          - api_key:
+              header: "Authorization"
+              omit_if_not_present: true
