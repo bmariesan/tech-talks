@@ -18,6 +18,9 @@ minikube dashboard
 minikube addons enable ingress
 ```
 
+## Kind, K3S
+If you want you can surely use any other local cluster K8s tooling
+
 ## Installing Emissary Ingress
 ### Add the Repo:
 ``` kubernetes helm
