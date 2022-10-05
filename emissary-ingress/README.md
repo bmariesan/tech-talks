@@ -56,6 +56,20 @@ at http://192.168.64.6:30494/ambassador/v0/diag
 
 ## Emissary example mappings
 
+### Table of contents
+
+1. [Simple mapping](#1-simple-mapping)
+2. [CQRS](#2-cqrs)
+3. [Circuit breakers](#3-circuit-breakers)
+4. [Canary Releases](#4-canary-releases)
+5. [Automatic retries](#5-automatic-retries)
+6. [Traffic Shadowing](#6-traffic-shadowing)
+7. [Authentication](#7-authentication)
+8. [Rate Limiting](#8-rate-limiting)
+9. [Distributed Tracing](#9-distributed-tracing)
+10. [Metrics](#10-metrics)
+11. [Other protocols](#11-grpc-websockets-http3-etc)
+
 ### 1. Simple mapping
 
 Before exposing any mappings we must tell Emissary to listen to traffic using a `Listener` resource
