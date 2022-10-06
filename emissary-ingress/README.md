@@ -3,7 +3,7 @@
 - [helm v3](https://helm.sh/)
 
 ## Slides
-- [Securing K8s APIs with Emissary Ingress.pdf](./Securing K8s APIs with Emissary Ingress.pdf)
+- [Securing K8s APIs with Emissary Ingress](Securing K8s APIs with Emissary Ingress.pdf)
 
 ## Minikube setup
 ### Startup
@@ -32,7 +32,7 @@ helm repo update
 ```
 
 ### Create Namespace and Install:
-``` kubernetes helm
+``` shell
 kubectl create namespace emissary && \
 kubectl apply -f https://app.getambassador.io/yaml/emissary/3.2.0/emissary-crds.yaml
 kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext -n emissary-system
