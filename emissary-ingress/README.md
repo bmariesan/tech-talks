@@ -3,7 +3,7 @@
 - [helm v3](https://helm.sh/)
 
 ## Slides
-- [Securing K8s APIs with Emissary Ingress](Securing K8s APIs with Emissary Ingress.pdf)
+- [Securing K8s APIs with Emissary Ingress](Securing%20K8s%20APIs%20with%20Emissary%20Ingress.pdf)
 
 ## Minikube setup
 ### Startup
