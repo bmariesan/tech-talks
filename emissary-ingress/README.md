@@ -2,6 +2,9 @@
 - [minikube](https://minikube.sigs.k8s.io/docs/start/)
 - [helm v3](https://helm.sh/)
 
+## Slides
+- [Securing K8s APIs with Emissary Ingress.pdf](./Securing K8s APIs with Emissary Ingress.pdf)
+
 ## Minikube setup
 ### Startup
 ``` kubernetes helm
