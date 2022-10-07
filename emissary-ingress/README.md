@@ -72,7 +72,7 @@ at http://192.168.64.6:30494/ambassador/v0/diag
 9. [Distributed Tracing](#9-distributed-tracing)
 10. [Metrics](#10-metrics)
 11. [Other protocols](#11-grpc-websockets-http3-etc)
-12. [Query param based mapping](#13-query-param-based-routing)
+12. [Query param based routing](#13-query-param-based-routing)
 
 ### 1. Simple mapping
 
