@@ -7,17 +7,17 @@
 
 ## Minikube setup
 ### Startup
-``` kubernetes helm
+``` shell
 minikube start --driver hyperkit
 ```
 
 ### Dashboard
-``` kubernetes helm
+``` shell
 minikube dashboard
 ```
 
 ### Setup Minikube Ingress
-``` kubernetes helm
+``` shell
 minikube addons enable ingress
 ```
 
@@ -26,7 +26,7 @@ If you want you can surely use any other local cluster K8s tooling
 
 ## Installing Emissary Ingress
 ### Add the Repo:
-``` kubernetes helm
+``` shell
 helm repo add datawire https://app.getambassador.io
 helm repo update
 ```
@@ -41,14 +41,14 @@ kubectl -n emissary wait --for condition=available --timeout=90s deploy -lapp.ku
 ```
 
 ### Enable Http traffic for Emissary
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/listener.yaml
 ```
 
 If you want to access Emissary directly, you'd have to either use `minikube tunnel` if you
 leave the default service type of `LoadBalancer` or if you switch them to `NodePort` you
 can get individual tunnels for each service by running:
-``` kubernetes helm
+``` shell
 minikube service emissary-ingress-admin --url -n emissary
 ```
 which outputs something similar to
@@ -77,7 +77,7 @@ at http://192.168.64.6:30494/ambassador/v0/diag
 
 Before exposing any mappings we must tell Emissary to listen to traffic using a `Listener` resource
 
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/1_listener.yaml 
 
 ---
@@ -97,12 +97,12 @@ spec:
 
 Next step we deploy a dummy service to demo the functionalities:
 
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/1_sample-service.yaml 
 ```
 
 After which we configure a `Mapping` resource to expose the service via the Api Gateway:
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/1_sample-service-mapping.yaml 
 
 ---
@@ -156,7 +156,7 @@ implementation of the [CQRS pattern](https://martinfowler.com/bliki/CQRS.html) h
 requests forwarded to a service, while `PUT` going to a totally different one.
 
 First step let's apply the mappings:
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/2_cqrs-mapping.yaml
 
 ---
@@ -268,7 +268,7 @@ Furthermore, circuit breakers can stop traffic from hitting a specific service e
 rate limiter might say you are allowed to.
 
 Again first step, let's define a mapping with circuit breakers:
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/3_circuit-breaker-mapping.yaml
 
 ---
@@ -290,7 +290,7 @@ spec:
 ```
 
 And now let's be cheesy and simulate more traffic than the capacity of our service:
-``` kubernetes helm
+``` shell
  xargs -I % -P 5  curl -I --request GET http://CLUSTER_IP:NODE_PORT/breaker/ < <(printf '%s\n' {1..10}) 
 ```
 
@@ -306,7 +306,7 @@ The `Mapping` resource has a solution for this as it allows weighted traffic on 
 Let's look at an example to make things clearer.
 
 Starting with the mapping:
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/4_canary-release-mapping.yaml
 
 ---
@@ -347,7 +347,7 @@ How about if we have a legacy service that we know for sure is prone to fail ran
 don't have the expertise to fix it, but we know that most of the time retrying will fix the problem.
 
 `Mapping` to the rescue:
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/5_automatic-retries-mapping.yaml
 
 ---
@@ -386,7 +386,7 @@ We have a monolith, we build a microservice, we have no idea if they work the sa
 can you help us `Mapping`?
 
 Let's go:
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/6_traffic-shadowing-mapping.yaml
 
 ---
@@ -418,7 +418,7 @@ In not so fancy wording, their purpose is to deny any unwanted request long befo
 traffic reaches the actual service.
 
 Let's apply the magic:
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/7_auth_service.yaml
 
 # Take into account that the ^ above will enforce auth for all services
@@ -460,7 +460,7 @@ You could say it's good for business as long as he pays, but having just 1 user 
 Similarly to the `AuthService`, Envoy has an API capable of enforce rate limits based on whatever
 criteria we decide.
 
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/8_rate_limit.yaml
 
 ---
@@ -478,7 +478,7 @@ Again it can be built in whatever programming language you choose to as long as 
 
 Additionally, you can add custom labels or even pass on headers from the upstream to help you decide:
 
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/8_rate_limit_mapping.yaml
 
 ---
@@ -508,7 +508,7 @@ spec:
 Not much to say on this topic, apply the `Zipkin` config, run a few requests and
 visualise the traces.
 
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/9_distributed_tracing.yaml
 ```
 
@@ -517,7 +517,7 @@ kubectl apply -f emissary-config/9_distributed_tracing.yaml
 I love metrics, and I'm sure you do too and yes we have them `Prometheus` compatible!
 
 First let's expose the `/metrics` path as otherwise it won't be visible outside the cluster:
-``` kubernetes helm
+``` shell
 kubectl apply -f emissary-config/10_metrics.yaml
 
 ---
@@ -535,7 +535,7 @@ spec:
 ### 11. gRPC, Websockets, Http3 etc.
 
 gRPC? Sure thing we can:
-``` kubernetes helm
+``` shell
 apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
@@ -549,7 +549,7 @@ spec:
 ```
 
 Websockets here we go:
-``` kubernetes helm
+``` shell
 ---
 apiVersion: getambassador.io/v3alpha1
 kind: Mapping
