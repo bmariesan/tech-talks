@@ -72,6 +72,7 @@ at http://192.168.64.6:30494/ambassador/v0/diag
 9. [Distributed Tracing](#9-distributed-tracing)
 10. [Metrics](#10-metrics)
 11. [Other protocols](#11-grpc-websockets-http3-etc)
+12. [Query param based mapping](#13-query-param-based-routing)
 
 ### 1. Simple mapping
 
@@ -564,6 +565,46 @@ spec:
 ```
 
 Http/3? => [Http/3 docs](https://www.getambassador.io/docs/emissary/latest/topics/running/http3/)
+
+### 13. Query param based routing
+
+Another neat trick we could do with `Mapping` is to also route based on query params as part of the path. 
+
+But you might ask - "what's so cool about doing this?" - so let's imagine a scenario:
+*Given an analytics platform, we want to ensure high throughput for `GET` type calls to retrieve data for the last `24 hours`.
+All data older than that should be retrieved paginated in queries capable of returning up to `1000 items per page`.*
+
+Looking at the scenario above it's clear that any of the `1000 item pe page` queries will for sure take longer time to run
+when compared to what we consider as `high throughput queries to get aggregated data for hte last 24 hours`. Traditionally
+in some frameworks or programming languages we could have different data sources and pools for the two and split the traffic,
+however they'd still share some resources.
+
+This is were using `query param based routing` could help us split traffic before it reaches our service, meaning that we
+could literally have throughput and long running query deployments and split traffic at the edge in `Emissary-Ingress`:
+
+``` shell
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  quote-mode
+spec:
+  prefix: /query-param-routing/
+  service: quote-throughput-service
+
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name:  quote-mode
+spec:
+  prefix: /query-param-routing/
+  service: quote-slow-queries-service
+  query_parameters:
+    page_size: 1000
+```
+
+The split can be done on one or multiple params but the result is the same.
 
 ## Topics not covered
 - [TLS Termination](https://www.getambassador.io/docs/edge-stack/latest/howtos/tls-termination/#tls-termination-and-enabling-https)
