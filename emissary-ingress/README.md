@@ -579,8 +579,8 @@ when compared to what we consider as `high throughput queries to get aggregated 
 in some frameworks or programming languages we could have different data sources and pools for the two and split the traffic,
 however they'd still share some resources.
 
-This is were using `query param based routing` could help us split traffic before it reaches our service, meaning that we
-could literally have throughput and long running query deployments and split traffic at the edge in `Emissary-Ingress`:
+This is where using `query param based routing` could help us split traffic before it reaches our service, meaning that we
+could literally have throughput and long-running query deployments and split traffic at the edge in `Emissary-Ingress`:
 
 ``` shell
 ---
