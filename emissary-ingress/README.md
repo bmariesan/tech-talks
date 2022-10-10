@@ -574,7 +574,7 @@ But you might ask - "what's so cool about doing this?" - so let's imagine a scen
 *Given an analytics platform, we want to ensure high throughput for `GET` type calls to retrieve data for the last `24 hours`.
 All data older than that should be retrieved paginated in queries capable of returning up to `1000 items per page`.*
 
-Looking at the scenario above it's clear that any of the `1000 item pe page` queries will for sure take longer time to run
+Looking at the scenario above its clear that any of the `1000 item pe page` queries will for sure take longer time to run
 when compared to what we consider as `high throughput queries to get aggregated data for hte last 24 hours`. Traditionally
 in some frameworks or programming languages we could have different data sources and pools for the two and split the traffic,
 however they'd still share some resources.
